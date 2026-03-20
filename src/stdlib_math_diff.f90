@@ -88,14 +88,7 @@ contains
         size_work = size_x + size_prepend + size_append
         
         if (size_work <= n_) then
-            select case (dim_)
-            case (1)
-                allocate(y(0, size(x, 2)))
-            case (2)
-                allocate(y(size(x, 1), 0))
-            case default
-                error stop "diff_2: internal error: invalid dimension (dim_ must be 1 or 2)"
-            end select
+            allocate(y(0, 0))
             return
         end if
         
@@ -217,14 +210,7 @@ contains
         size_work = size_x + size_prepend + size_append
         
         if (size_work <= n_) then
-            select case (dim_)
-            case (1)
-                allocate(y(0, size(x, 2)))
-            case (2)
-                allocate(y(size(x, 1), 0))
-            case default
-                error stop "diff_2: internal error: invalid dimension (dim_ must be 1 or 2)"
-            end select
+            allocate(y(0, 0))
             return
         end if
         
@@ -346,14 +332,7 @@ contains
         size_work = size_x + size_prepend + size_append
         
         if (size_work <= n_) then
-            select case (dim_)
-            case (1)
-                allocate(y(0, size(x, 2)))
-            case (2)
-                allocate(y(size(x, 1), 0))
-            case default
-                error stop "diff_2: internal error: invalid dimension (dim_ must be 1 or 2)"
-            end select
+            allocate(y(0, 0))
             return
         end if
         
@@ -475,14 +454,7 @@ contains
         size_work = size_x + size_prepend + size_append
         
         if (size_work <= n_) then
-            select case (dim_)
-            case (1)
-                allocate(y(0, size(x, 2)))
-            case (2)
-                allocate(y(size(x, 1), 0))
-            case default
-                error stop "diff_2: internal error: invalid dimension (dim_ must be 1 or 2)"
-            end select
+            allocate(y(0, 0))
             return
         end if
         
@@ -604,14 +576,7 @@ contains
         size_work = size_x + size_prepend + size_append
         
         if (size_work <= n_) then
-            select case (dim_)
-            case (1)
-                allocate(y(0, size(x, 2)))
-            case (2)
-                allocate(y(size(x, 1), 0))
-            case default
-                error stop "diff_2: internal error: invalid dimension (dim_ must be 1 or 2)"
-            end select
+            allocate(y(0, 0))
             return
         end if
         
@@ -733,14 +698,7 @@ contains
         size_work = size_x + size_prepend + size_append
         
         if (size_work <= n_) then
-            select case (dim_)
-            case (1)
-                allocate(y(0, size(x, 2)))
-            case (2)
-                allocate(y(size(x, 1), 0))
-            case default
-                error stop "diff_2: internal error: invalid dimension (dim_ must be 1 or 2)"
-            end select
+            allocate(y(0, 0))
             return
         end if
         
