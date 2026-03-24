@@ -82,22 +82,8 @@ contains
             dim_ = 1
         end if
         
-        if (present(prepend)) then
-            if (size(prepend, 3 - dim_) /= size(x, 3 - dim_)) then
-                allocate(y(0, 0))
-                return
-            end if
-            size_prepend = size(prepend, dim_)
-        end if
-        
-        if (present(append)) then
-            if (size(append, 3 - dim_) /= size(x, 3 - dim_)) then
-                allocate(y(0, 0))
-                return
-            end if
-            size_append = size(append, dim_)
-        end if
-        
+        if (present(prepend)) size_prepend = size(prepend, dim_)
+        if (present(append)) size_append = size(append, dim_)
         size_x = size(x, dim_)
         size_work = size_x + size_prepend + size_append
         
@@ -225,22 +211,8 @@ contains
             dim_ = 1
         end if
         
-        if (present(prepend)) then
-            if (size(prepend, 3 - dim_) /= size(x, 3 - dim_)) then
-                allocate(y(0, 0))
-                return
-            end if
-            size_prepend = size(prepend, dim_)
-        end if
-        
-        if (present(append)) then
-            if (size(append, 3 - dim_) /= size(x, 3 - dim_)) then
-                allocate(y(0, 0))
-                return
-            end if
-            size_append = size(append, dim_)
-        end if
-        
+        if (present(prepend)) size_prepend = size(prepend, dim_)
+        if (present(append)) size_append = size(append, dim_)
         size_x = size(x, dim_)
         size_work = size_x + size_prepend + size_append
         
@@ -368,22 +340,8 @@ contains
             dim_ = 1
         end if
         
-        if (present(prepend)) then
-            if (size(prepend, 3 - dim_) /= size(x, 3 - dim_)) then
-                allocate(y(0, 0))
-                return
-            end if
-            size_prepend = size(prepend, dim_)
-        end if
-        
-        if (present(append)) then
-            if (size(append, 3 - dim_) /= size(x, 3 - dim_)) then
-                allocate(y(0, 0))
-                return
-            end if
-            size_append = size(append, dim_)
-        end if
-        
+        if (present(prepend)) size_prepend = size(prepend, dim_)
+        if (present(append)) size_append = size(append, dim_)
         size_x = size(x, dim_)
         size_work = size_x + size_prepend + size_append
         
@@ -511,22 +469,8 @@ contains
             dim_ = 1
         end if
         
-        if (present(prepend)) then
-            if (size(prepend, 3 - dim_) /= size(x, 3 - dim_)) then
-                allocate(y(0, 0))
-                return
-            end if
-            size_prepend = size(prepend, dim_)
-        end if
-        
-        if (present(append)) then
-            if (size(append, 3 - dim_) /= size(x, 3 - dim_)) then
-                allocate(y(0, 0))
-                return
-            end if
-            size_append = size(append, dim_)
-        end if
-        
+        if (present(prepend)) size_prepend = size(prepend, dim_)
+        if (present(append)) size_append = size(append, dim_)
         size_x = size(x, dim_)
         size_work = size_x + size_prepend + size_append
         
@@ -654,22 +598,8 @@ contains
             dim_ = 1
         end if
         
-        if (present(prepend)) then
-            if (size(prepend, 3 - dim_) /= size(x, 3 - dim_)) then
-                allocate(y(0, 0))
-                return
-            end if
-            size_prepend = size(prepend, dim_)
-        end if
-        
-        if (present(append)) then
-            if (size(append, 3 - dim_) /= size(x, 3 - dim_)) then
-                allocate(y(0, 0))
-                return
-            end if
-            size_append = size(append, dim_)
-        end if
-        
+        if (present(prepend)) size_prepend = size(prepend, dim_)
+        if (present(append)) size_append = size(append, dim_)
         size_x = size(x, dim_)
         size_work = size_x + size_prepend + size_append
         
@@ -797,22 +727,8 @@ contains
             dim_ = 1
         end if
         
-        if (present(prepend)) then
-            if (size(prepend, 3 - dim_) /= size(x, 3 - dim_)) then
-                allocate(y(0, 0))
-                return
-            end if
-            size_prepend = size(prepend, dim_)
-        end if
-        
-        if (present(append)) then
-            if (size(append, 3 - dim_) /= size(x, 3 - dim_)) then
-                allocate(y(0, 0))
-                return
-            end if
-            size_append = size(append, dim_)
-        end if
-        
+        if (present(prepend)) size_prepend = size(prepend, dim_)
+        if (present(append)) size_append = size(append, dim_)
         size_x = size(x, dim_)
         size_work = size_x + size_prepend + size_append
         
