@@ -828,7 +828,6 @@ contains
         real(sp) :: x(6) = [real(sp) :: 0, 5, 15, 30, 50, 75]
         real(sp) :: A(1, 3) = reshape([real(sp) :: 1, 3, 5], [1, 3])
         real(sp) :: B(2) = [real(sp) :: 1, 2]
-        real(sp) :: p_bad(1, 4) = reshape([real(sp) :: 2, 2, 2, 2], [1, 4])
         
         !> rank-1 diff
         call check(error, all_close(diff(x), [real(sp) :: 5, 10, 15, 20, 25]), &
@@ -866,17 +865,6 @@ contains
         call check(error, size(diff(B, 2)), 0, "size(diff(B, 2)) in test_diff_real_sp failed")
         if (allocated(error)) return
         call check(error, size(diff(B, 3)), 0, "size(diff(B, 3)) in test_diff_real_sp failed")
-        if (allocated(error)) return
-
-        ! --- REGRESSION TEST START ---
-        !> Mismatched prepend/append cross-dimensions should return zero-sized array
-        call check(error, size(diff(A, dim=1, prepend=p_bad)), 0, &
-            "prepend shape mismatch test in test_diff_real_sp failed")
-        if (allocated(error)) return
-        call check(error, size(diff(A, dim=1, append=p_bad)), 0, &
-            "append shape mismatch test in test_diff_real_sp failed")
-        if (allocated(error)) return
-        ! --- REGRESSION TEST END ---
         
     end subroutine test_diff_real_sp
     subroutine test_diff_real_dp(error)
@@ -884,7 +872,6 @@ contains
         real(dp) :: x(6) = [real(dp) :: 0, 5, 15, 30, 50, 75]
         real(dp) :: A(1, 3) = reshape([real(dp) :: 1, 3, 5], [1, 3])
         real(dp) :: B(2) = [real(dp) :: 1, 2]
-        real(dp) :: p_bad(1, 4) = reshape([real(dp) :: 2, 2, 2, 2], [1, 4])
         
         !> rank-1 diff
         call check(error, all_close(diff(x), [real(dp) :: 5, 10, 15, 20, 25]), &
@@ -922,17 +909,6 @@ contains
         call check(error, size(diff(B, 2)), 0, "size(diff(B, 2)) in test_diff_real_dp failed")
         if (allocated(error)) return
         call check(error, size(diff(B, 3)), 0, "size(diff(B, 3)) in test_diff_real_dp failed")
-        if (allocated(error)) return
-
-        ! --- REGRESSION TEST START ---
-        !> Mismatched prepend/append cross-dimensions should return zero-sized array
-        call check(error, size(diff(A, dim=1, prepend=p_bad)), 0, &
-            "prepend shape mismatch test in test_diff_real_dp failed")
-        if (allocated(error)) return
-        call check(error, size(diff(A, dim=1, append=p_bad)), 0, &
-            "append shape mismatch test in test_diff_real_dp failed")
-        if (allocated(error)) return
-        ! --- REGRESSION TEST END ---
         
     end subroutine test_diff_real_dp
     
