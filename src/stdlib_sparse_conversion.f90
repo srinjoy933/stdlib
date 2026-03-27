@@ -87,8 +87,7 @@ module stdlib_sparse_conversion
         module procedure :: csr2dense_cdp
     end interface
     public :: csr2dense
-
-    !! version: experimental
+     !! version: experimental
     !!
     !! Conversion from csc to dense
     !! Enables creating a dense 2D matrix from the non-zero values stored in a CSC format
@@ -681,7 +680,7 @@ contains
             end do
         end if
     end subroutine
-
+    
     subroutine csr2dense_dp(CSR,dense)
         type(CSR_dp_type), intent(in) :: CSR
         real(dp), allocatable, intent(out) :: dense(:,:)
@@ -704,7 +703,7 @@ contains
             end do
         end if
     end subroutine
-
+    
     subroutine csr2dense_csp(CSR,dense)
         type(CSR_csp_type), intent(in) :: CSR
         complex(sp), allocatable, intent(out) :: dense(:,:)
@@ -727,7 +726,7 @@ contains
             end do
         end if
     end subroutine
-
+    
     subroutine csr2dense_cdp(CSR,dense)
         type(CSR_cdp_type), intent(in) :: CSR
         complex(dp), allocatable, intent(out) :: dense(:,:)
@@ -750,7 +749,7 @@ contains
             end do
         end if
     end subroutine
-
+    
 
     subroutine csc2dense_sp(CSC,dense)
         type(CSC_sp_type), intent(in) :: CSC
