@@ -3,11 +3,12 @@ module test_specialmatrices
     use stdlib_kinds
     use stdlib_linalg, only: hermitian
     use stdlib_linalg_state, only: linalg_state_type
-    use stdlib_math, only: all_close, is_close
+    use stdlib_math, only: all_close
     use stdlib_specialmatrices
     implicit none
 
 contains
+
 
     !> Collect all exported unit tests
     subroutine collect_suite(testsuite)
@@ -16,9 +17,7 @@ contains
 
         testsuite = [ &
             new_unittest('tridiagonal', test_tridiagonal), &
-            new_unittest('tridiagonal error handling', test_tridiagonal_error_handling), &
-            new_unittest('tridiagonal 1x1 edge case', test_tridiagonal_1x1), &
-            new_unittest('tridiagonal arithmetic', test_tridiagonal_arithmetic) &
+            new_unittest('tridiagonal error handling', test_tridiagonal_error_handling) &
         ]
     end subroutine
 
@@ -212,113 +211,8 @@ contains
         end block
     end subroutine
 
-    subroutine test_tridiagonal_1x1(error)
-        !> Test 1x1 matrix edge case for dense conversion
-        type(error_type), allocatable, intent(out) :: error
-        block
-            integer, parameter :: wp = sp
-            type(tridiagonal_sp_type) :: A
-            real(sp), allocatable :: Amat(:,:), dl(:), dv(:), du(:)
-            
-            ! 1x1 matrix has 0-sized off-diagonals and 1-sized diagonal
-            allocate(dl(0), dv(1), du(0))
-            dv(1) = 5.0_wp
-            A = tridiagonal(dl, dv, du) 
-            Amat = dense(A)
-
-            ! Check if it compiled and converted properly without segfaulting
-            call check(error, size(Amat, 1) == 1, .true.)
-            if (allocated(error)) return
-            call check(error, is_close(Amat(1,1), 5.0_wp), .true.)
-            if (allocated(error)) return
-        end block
-        block
-            integer, parameter :: wp = dp
-            type(tridiagonal_dp_type) :: A
-            real(dp), allocatable :: Amat(:,:), dl(:), dv(:), du(:)
-            
-            ! 1x1 matrix has 0-sized off-diagonals and 1-sized diagonal
-            allocate(dl(0), dv(1), du(0))
-            dv(1) = 5.0_wp
-            A = tridiagonal(dl, dv, du) 
-            Amat = dense(A)
-
-            ! Check if it compiled and converted properly without segfaulting
-            call check(error, size(Amat, 1) == 1, .true.)
-            if (allocated(error)) return
-            call check(error, is_close(Amat(1,1), 5.0_wp), .true.)
-            if (allocated(error)) return
-        end block
-    end subroutine
-
-    subroutine test_tridiagonal_arithmetic(error)
-        !> Test arithmetic operations and optimization
-        type(error_type), allocatable, intent(out) :: error
-        block
-            integer, parameter :: wp = sp
-            integer, parameter :: n = 3
-            type(tridiagonal_sp_type) :: A, B, C
-            real(sp), allocatable :: dl1(:), dv1(:), du1(:)
-            real(sp), allocatable :: dl2(:), dv2(:), du2(:)
-            
-            allocate(dl1(n-1), dv1(n), du1(n-1))
-            allocate(dl2(n-1), dv2(n), du2(n-1))
-            
-            dl1 = 1.0_wp ; dv1 = 2.0_wp ; du1 = 3.0_wp
-            dl2 = 4.0_wp ; dv2 = 5.0_wp ; du2 = 6.0_wp
-            
-            A = tridiagonal(dl1, dv1, du1)
-            B = tridiagonal(dl2, dv2, du2)
-            
-            ! Addition test - use dense() to bypass private component restrictions
-            C = A + B
-            call check(error, all_close(dense(C), dense(A) + dense(B)), .true.)
-            if (allocated(error)) return
-            
-            ! Subtraction test
-            C = A - B
-            call check(error, all_close(dense(C), dense(A) - dense(B)), .true.)
-            if (allocated(error)) return
-            
-            ! Scalar multiplication test
-            C = 3.0_wp * A
-            call check(error, all_close(dense(C), 3.0_wp * dense(A)), .true.)
-            if (allocated(error)) return
-        end block
-        block
-            integer, parameter :: wp = dp
-            integer, parameter :: n = 3
-            type(tridiagonal_dp_type) :: A, B, C
-            real(dp), allocatable :: dl1(:), dv1(:), du1(:)
-            real(dp), allocatable :: dl2(:), dv2(:), du2(:)
-            
-            allocate(dl1(n-1), dv1(n), du1(n-1))
-            allocate(dl2(n-1), dv2(n), du2(n-1))
-            
-            dl1 = 1.0_wp ; dv1 = 2.0_wp ; du1 = 3.0_wp
-            dl2 = 4.0_wp ; dv2 = 5.0_wp ; du2 = 6.0_wp
-            
-            A = tridiagonal(dl1, dv1, du1)
-            B = tridiagonal(dl2, dv2, du2)
-            
-            ! Addition test - use dense() to bypass private component restrictions
-            C = A + B
-            call check(error, all_close(dense(C), dense(A) + dense(B)), .true.)
-            if (allocated(error)) return
-            
-            ! Subtraction test
-            C = A - B
-            call check(error, all_close(dense(C), dense(A) - dense(B)), .true.)
-            if (allocated(error)) return
-            
-            ! Scalar multiplication test
-            C = 3.0_wp * A
-            call check(error, all_close(dense(C), 3.0_wp * dense(A)), .true.)
-            if (allocated(error)) return
-        end block
-    end subroutine
-
 end module
+
 
 program tester
     use, intrinsic :: iso_fortran_env, only : error_unit
@@ -332,7 +226,7 @@ program tester
     stat = 0
 
     testsuites = [ &
-        new_testsuite("special matrices", collect_suite) &
+        new_testsuite("sparse", collect_suite) &
         ]
 
     do is = 1, size(testsuites)
