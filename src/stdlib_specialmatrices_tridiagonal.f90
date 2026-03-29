@@ -53,6 +53,7 @@ submodule (stdlib_specialmatrices) tridiagonal_matrices
         !! Corresponding tridiagonal matrix.
 
         ! Internal variables.
+        integer(ilp) :: i
         type(linalg_state_type) :: err0
 
         ! Description of the matrix.
@@ -116,6 +117,7 @@ submodule (stdlib_specialmatrices) tridiagonal_matrices
         !! Corresponding tridiagonal matrix.
 
         ! Internal variables.
+        integer(ilp) :: i
         type(linalg_state_type) :: err0
 
         if (n <= 0) then
@@ -175,6 +177,7 @@ submodule (stdlib_specialmatrices) tridiagonal_matrices
         !! Corresponding tridiagonal matrix.
 
         ! Internal variables.
+        integer(ilp) :: i
         type(linalg_state_type) :: err0
 
         ! Description of the matrix.
@@ -238,6 +241,7 @@ submodule (stdlib_specialmatrices) tridiagonal_matrices
         !! Corresponding tridiagonal matrix.
 
         ! Internal variables.
+        integer(ilp) :: i
         type(linalg_state_type) :: err0
 
         if (n <= 0) then
@@ -297,6 +301,7 @@ submodule (stdlib_specialmatrices) tridiagonal_matrices
         !! Corresponding tridiagonal matrix.
 
         ! Internal variables.
+        integer(ilp) :: i
         type(linalg_state_type) :: err0
 
         ! Description of the matrix.
@@ -360,6 +365,7 @@ submodule (stdlib_specialmatrices) tridiagonal_matrices
         !! Corresponding tridiagonal matrix.
 
         ! Internal variables.
+        integer(ilp) :: i
         type(linalg_state_type) :: err0
 
         if (n <= 0) then
@@ -419,6 +425,7 @@ submodule (stdlib_specialmatrices) tridiagonal_matrices
         !! Corresponding tridiagonal matrix.
 
         ! Internal variables.
+        integer(ilp) :: i
         type(linalg_state_type) :: err0
 
         ! Description of the matrix.
@@ -482,6 +489,7 @@ submodule (stdlib_specialmatrices) tridiagonal_matrices
         !! Corresponding tridiagonal matrix.
 
         ! Internal variables.
+        integer(ilp) :: i
         type(linalg_state_type) :: err0
 
         if (n <= 0) then
@@ -853,18 +861,13 @@ submodule (stdlib_specialmatrices) tridiagonal_matrices
 
         associate (n => A%n)
         allocate(B(n, n), source=zero_sp)
-        
-        if (n == 1) then
-            B(1, 1) = A%dv(1)
-        else
-            B(1, 1) = A%dv(1) ; B(1, 2) = A%du(1)
-            do concurrent (i=2:n-1)
-                B(i, i-1) = A%dl(i-1)
-                B(i, i) = A%dv(i)
-                B(i, i+1) = A%du(i)
-            enddo
-            B(n, n-1) = A%dl(n-1) ; B(n, n) = A%dv(n)
-        end if
+        B(1, 1) = A%dv(1) ; B(1, 2) = A%du(1)
+        do concurrent (i=2:n-1)
+            B(i, i-1) = A%dl(i-1)
+            B(i, i) = A%dv(i)
+            B(i, i+1) = A%du(i)
+        enddo
+        B(n, n-1) = A%dl(n-1) ; B(n, n) = A%dv(n)
         end associate
     end function
     pure module function tridiagonal_to_dense_dp(A) result(B)
@@ -879,18 +882,13 @@ submodule (stdlib_specialmatrices) tridiagonal_matrices
 
         associate (n => A%n)
         allocate(B(n, n), source=zero_dp)
-        
-        if (n == 1) then
-            B(1, 1) = A%dv(1)
-        else
-            B(1, 1) = A%dv(1) ; B(1, 2) = A%du(1)
-            do concurrent (i=2:n-1)
-                B(i, i-1) = A%dl(i-1)
-                B(i, i) = A%dv(i)
-                B(i, i+1) = A%du(i)
-            enddo
-            B(n, n-1) = A%dl(n-1) ; B(n, n) = A%dv(n)
-        end if
+        B(1, 1) = A%dv(1) ; B(1, 2) = A%du(1)
+        do concurrent (i=2:n-1)
+            B(i, i-1) = A%dl(i-1)
+            B(i, i) = A%dv(i)
+            B(i, i+1) = A%du(i)
+        enddo
+        B(n, n-1) = A%dl(n-1) ; B(n, n) = A%dv(n)
         end associate
     end function
     pure module function tridiagonal_to_dense_csp(A) result(B)
@@ -905,18 +903,13 @@ submodule (stdlib_specialmatrices) tridiagonal_matrices
 
         associate (n => A%n)
         allocate(B(n, n), source=zero_csp)
-        
-        if (n == 1) then
-            B(1, 1) = A%dv(1)
-        else
-            B(1, 1) = A%dv(1) ; B(1, 2) = A%du(1)
-            do concurrent (i=2:n-1)
-                B(i, i-1) = A%dl(i-1)
-                B(i, i) = A%dv(i)
-                B(i, i+1) = A%du(i)
-            enddo
-            B(n, n-1) = A%dl(n-1) ; B(n, n) = A%dv(n)
-        end if
+        B(1, 1) = A%dv(1) ; B(1, 2) = A%du(1)
+        do concurrent (i=2:n-1)
+            B(i, i-1) = A%dl(i-1)
+            B(i, i) = A%dv(i)
+            B(i, i+1) = A%du(i)
+        enddo
+        B(n, n-1) = A%dl(n-1) ; B(n, n) = A%dv(n)
         end associate
     end function
     pure module function tridiagonal_to_dense_cdp(A) result(B)
@@ -931,18 +924,13 @@ submodule (stdlib_specialmatrices) tridiagonal_matrices
 
         associate (n => A%n)
         allocate(B(n, n), source=zero_cdp)
-        
-        if (n == 1) then
-            B(1, 1) = A%dv(1)
-        else
-            B(1, 1) = A%dv(1) ; B(1, 2) = A%du(1)
-            do concurrent (i=2:n-1)
-                B(i, i-1) = A%dl(i-1)
-                B(i, i) = A%dv(i)
-                B(i, i+1) = A%du(i)
-            enddo
-            B(n, n-1) = A%dl(n-1) ; B(n, n) = A%dv(n)
-        end if
+        B(1, 1) = A%dv(1) ; B(1, 2) = A%du(1)
+        do concurrent (i=2:n-1)
+            B(i, i-1) = A%dl(i-1)
+            B(i, i) = A%dv(i)
+            B(i, i+1) = A%du(i)
+        enddo
+        B(n, n-1) = A%dl(n-1) ; B(n, n) = A%dv(n)
         end associate
     end function
 
@@ -1000,130 +988,122 @@ submodule (stdlib_specialmatrices) tridiagonal_matrices
         real(sp), intent(in) :: alpha
         type(tridiagonal_sp_type), intent(in) :: A
         type(tridiagonal_sp_type) :: B
-        B = tridiagonal(alpha*A%dl, alpha*A%dv, alpha*A%du)
+        B = tridiagonal(A%dl, A%dv, A%du)
+        B%dl = alpha*B%dl; B%dv = alpha*B%dv; B%du = alpha*B%du
     end function
 
     pure module function scalar_multiplication_bis_tridiagonal_sp(A, alpha) result(B)
         type(tridiagonal_sp_type), intent(in) :: A
         real(sp), intent(in) :: alpha
         type(tridiagonal_sp_type) :: B
-        B = tridiagonal(alpha*A%dl, alpha*A%dv, alpha*A%du)
+        B = tridiagonal(A%dl, A%dv, A%du)
+        B%dl = alpha*B%dl; B%dv = alpha*B%dv; B%du = alpha*B%du
     end function
     pure module function scalar_multiplication_tridiagonal_dp(alpha, A) result(B)
         real(dp), intent(in) :: alpha
         type(tridiagonal_dp_type), intent(in) :: A
         type(tridiagonal_dp_type) :: B
-        B = tridiagonal(alpha*A%dl, alpha*A%dv, alpha*A%du)
+        B = tridiagonal(A%dl, A%dv, A%du)
+        B%dl = alpha*B%dl; B%dv = alpha*B%dv; B%du = alpha*B%du
     end function
 
     pure module function scalar_multiplication_bis_tridiagonal_dp(A, alpha) result(B)
         type(tridiagonal_dp_type), intent(in) :: A
         real(dp), intent(in) :: alpha
         type(tridiagonal_dp_type) :: B
-        B = tridiagonal(alpha*A%dl, alpha*A%dv, alpha*A%du)
+        B = tridiagonal(A%dl, A%dv, A%du)
+        B%dl = alpha*B%dl; B%dv = alpha*B%dv; B%du = alpha*B%du
     end function
     pure module function scalar_multiplication_tridiagonal_csp(alpha, A) result(B)
         complex(sp), intent(in) :: alpha
         type(tridiagonal_csp_type), intent(in) :: A
         type(tridiagonal_csp_type) :: B
-        B = tridiagonal(alpha*A%dl, alpha*A%dv, alpha*A%du)
+        B = tridiagonal(A%dl, A%dv, A%du)
+        B%dl = alpha*B%dl; B%dv = alpha*B%dv; B%du = alpha*B%du
     end function
 
     pure module function scalar_multiplication_bis_tridiagonal_csp(A, alpha) result(B)
         type(tridiagonal_csp_type), intent(in) :: A
         complex(sp), intent(in) :: alpha
         type(tridiagonal_csp_type) :: B
-        B = tridiagonal(alpha*A%dl, alpha*A%dv, alpha*A%du)
+        B = tridiagonal(A%dl, A%dv, A%du)
+        B%dl = alpha*B%dl; B%dv = alpha*B%dv; B%du = alpha*B%du
     end function
     pure module function scalar_multiplication_tridiagonal_cdp(alpha, A) result(B)
         complex(dp), intent(in) :: alpha
         type(tridiagonal_cdp_type), intent(in) :: A
         type(tridiagonal_cdp_type) :: B
-        B = tridiagonal(alpha*A%dl, alpha*A%dv, alpha*A%du)
+        B = tridiagonal(A%dl, A%dv, A%du)
+        B%dl = alpha*B%dl; B%dv = alpha*B%dv; B%du = alpha*B%du
     end function
 
     pure module function scalar_multiplication_bis_tridiagonal_cdp(A, alpha) result(B)
         type(tridiagonal_cdp_type), intent(in) :: A
         complex(dp), intent(in) :: alpha
         type(tridiagonal_cdp_type) :: B
-        B = tridiagonal(alpha*A%dl, alpha*A%dv, alpha*A%du)
+        B = tridiagonal(A%dl, A%dv, A%du)
+        B%dl = alpha*B%dl; B%dv = alpha*B%dv; B%du = alpha*B%du
     end function
 
     pure module function matrix_add_tridiagonal_sp(A, B) result(C)
         type(tridiagonal_sp_type), intent(in) :: A
         type(tridiagonal_sp_type), intent(in) :: B
         type(tridiagonal_sp_type) :: C
-        
-        if (A%n /= B%n) error stop "ValueError: tridiagonal matrices must have the same dimension to be added"
-        
-        C = tridiagonal(A%dl + B%dl, A%dv + B%dv, A%du + B%du)
+        C = tridiagonal(A%dl, A%dv, A%du)
+        C%dl = C%dl + B%dl; C%dv = C%dv + B%dv; C%du = C%du + B%du
     end function
 
     pure module function matrix_sub_tridiagonal_sp(A, B) result(C)
         type(tridiagonal_sp_type), intent(in) :: A
         type(tridiagonal_sp_type), intent(in) :: B
         type(tridiagonal_sp_type) :: C
-        
-        if (A%n /= B%n) error stop "ValueError: tridiagonal matrices must have the same dimension to be subtracted"
-        
-        C = tridiagonal(A%dl - B%dl, A%dv - B%dv, A%du - B%du)
+        C = tridiagonal(A%dl, A%dv, A%du)
+        C%dl = C%dl - B%dl; C%dv = C%dv - B%dv; C%du = C%du - B%du
     end function
     pure module function matrix_add_tridiagonal_dp(A, B) result(C)
         type(tridiagonal_dp_type), intent(in) :: A
         type(tridiagonal_dp_type), intent(in) :: B
         type(tridiagonal_dp_type) :: C
-        
-        if (A%n /= B%n) error stop "ValueError: tridiagonal matrices must have the same dimension to be added"
-        
-        C = tridiagonal(A%dl + B%dl, A%dv + B%dv, A%du + B%du)
+        C = tridiagonal(A%dl, A%dv, A%du)
+        C%dl = C%dl + B%dl; C%dv = C%dv + B%dv; C%du = C%du + B%du
     end function
 
     pure module function matrix_sub_tridiagonal_dp(A, B) result(C)
         type(tridiagonal_dp_type), intent(in) :: A
         type(tridiagonal_dp_type), intent(in) :: B
         type(tridiagonal_dp_type) :: C
-        
-        if (A%n /= B%n) error stop "ValueError: tridiagonal matrices must have the same dimension to be subtracted"
-        
-        C = tridiagonal(A%dl - B%dl, A%dv - B%dv, A%du - B%du)
+        C = tridiagonal(A%dl, A%dv, A%du)
+        C%dl = C%dl - B%dl; C%dv = C%dv - B%dv; C%du = C%du - B%du
     end function
     pure module function matrix_add_tridiagonal_csp(A, B) result(C)
         type(tridiagonal_csp_type), intent(in) :: A
         type(tridiagonal_csp_type), intent(in) :: B
         type(tridiagonal_csp_type) :: C
-        
-        if (A%n /= B%n) error stop "ValueError: tridiagonal matrices must have the same dimension to be added"
-        
-        C = tridiagonal(A%dl + B%dl, A%dv + B%dv, A%du + B%du)
+        C = tridiagonal(A%dl, A%dv, A%du)
+        C%dl = C%dl + B%dl; C%dv = C%dv + B%dv; C%du = C%du + B%du
     end function
 
     pure module function matrix_sub_tridiagonal_csp(A, B) result(C)
         type(tridiagonal_csp_type), intent(in) :: A
         type(tridiagonal_csp_type), intent(in) :: B
         type(tridiagonal_csp_type) :: C
-        
-        if (A%n /= B%n) error stop "ValueError: tridiagonal matrices must have the same dimension to be subtracted"
-        
-        C = tridiagonal(A%dl - B%dl, A%dv - B%dv, A%du - B%du)
+        C = tridiagonal(A%dl, A%dv, A%du)
+        C%dl = C%dl - B%dl; C%dv = C%dv - B%dv; C%du = C%du - B%du
     end function
     pure module function matrix_add_tridiagonal_cdp(A, B) result(C)
         type(tridiagonal_cdp_type), intent(in) :: A
         type(tridiagonal_cdp_type), intent(in) :: B
         type(tridiagonal_cdp_type) :: C
-        
-        if (A%n /= B%n) error stop "ValueError: tridiagonal matrices must have the same dimension to be added"
-        
-        C = tridiagonal(A%dl + B%dl, A%dv + B%dv, A%du + B%du)
+        C = tridiagonal(A%dl, A%dv, A%du)
+        C%dl = C%dl + B%dl; C%dv = C%dv + B%dv; C%du = C%du + B%du
     end function
 
     pure module function matrix_sub_tridiagonal_cdp(A, B) result(C)
         type(tridiagonal_cdp_type), intent(in) :: A
         type(tridiagonal_cdp_type), intent(in) :: B
         type(tridiagonal_cdp_type) :: C
-        
-        if (A%n /= B%n) error stop "ValueError: tridiagonal matrices must have the same dimension to be subtracted"
-        
-        C = tridiagonal(A%dl - B%dl, A%dv - B%dv, A%du - B%du)
+        C = tridiagonal(A%dl, A%dv, A%du)
+        C%dl = C%dl - B%dl; C%dv = C%dv - B%dv; C%du = C%du - B%du
     end function
 
 end submodule
