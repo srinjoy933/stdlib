@@ -53,7 +53,6 @@ submodule (stdlib_specialmatrices) tridiagonal_matrices
         !! Corresponding tridiagonal matrix.
 
         ! Internal variables.
-        integer(ilp) :: i
         type(linalg_state_type) :: err0
 
         ! Description of the matrix.
@@ -117,7 +116,6 @@ submodule (stdlib_specialmatrices) tridiagonal_matrices
         !! Corresponding tridiagonal matrix.
 
         ! Internal variables.
-        integer(ilp) :: i
         type(linalg_state_type) :: err0
 
         if (n <= 0) then
@@ -177,7 +175,6 @@ submodule (stdlib_specialmatrices) tridiagonal_matrices
         !! Corresponding tridiagonal matrix.
 
         ! Internal variables.
-        integer(ilp) :: i
         type(linalg_state_type) :: err0
 
         ! Description of the matrix.
@@ -241,7 +238,6 @@ submodule (stdlib_specialmatrices) tridiagonal_matrices
         !! Corresponding tridiagonal matrix.
 
         ! Internal variables.
-        integer(ilp) :: i
         type(linalg_state_type) :: err0
 
         if (n <= 0) then
@@ -301,7 +297,6 @@ submodule (stdlib_specialmatrices) tridiagonal_matrices
         !! Corresponding tridiagonal matrix.
 
         ! Internal variables.
-        integer(ilp) :: i
         type(linalg_state_type) :: err0
 
         ! Description of the matrix.
@@ -365,7 +360,6 @@ submodule (stdlib_specialmatrices) tridiagonal_matrices
         !! Corresponding tridiagonal matrix.
 
         ! Internal variables.
-        integer(ilp) :: i
         type(linalg_state_type) :: err0
 
         if (n <= 0) then
@@ -425,7 +419,6 @@ submodule (stdlib_specialmatrices) tridiagonal_matrices
         !! Corresponding tridiagonal matrix.
 
         ! Internal variables.
-        integer(ilp) :: i
         type(linalg_state_type) :: err0
 
         ! Description of the matrix.
@@ -489,7 +482,6 @@ submodule (stdlib_specialmatrices) tridiagonal_matrices
         !! Corresponding tridiagonal matrix.
 
         ! Internal variables.
-        integer(ilp) :: i
         type(linalg_state_type) :: err0
 
         if (n <= 0) then
@@ -861,13 +853,18 @@ submodule (stdlib_specialmatrices) tridiagonal_matrices
 
         associate (n => A%n)
         allocate(B(n, n), source=zero_sp)
-        B(1, 1) = A%dv(1) ; B(1, 2) = A%du(1)
-        do concurrent (i=2:n-1)
-            B(i, i-1) = A%dl(i-1)
-            B(i, i) = A%dv(i)
-            B(i, i+1) = A%du(i)
-        enddo
-        B(n, n-1) = A%dl(n-1) ; B(n, n) = A%dv(n)
+        
+        if (n == 1) then
+            B(1, 1) = A%dv(1)
+        else
+            B(1, 1) = A%dv(1) ; B(1, 2) = A%du(1)
+            do concurrent (i=2:n-1)
+                B(i, i-1) = A%dl(i-1)
+                B(i, i) = A%dv(i)
+                B(i, i+1) = A%du(i)
+            enddo
+            B(n, n-1) = A%dl(n-1) ; B(n, n) = A%dv(n)
+        end if
         end associate
     end function
     pure module function tridiagonal_to_dense_dp(A) result(B)
@@ -882,13 +879,18 @@ submodule (stdlib_specialmatrices) tridiagonal_matrices
 
         associate (n => A%n)
         allocate(B(n, n), source=zero_dp)
-        B(1, 1) = A%dv(1) ; B(1, 2) = A%du(1)
-        do concurrent (i=2:n-1)
-            B(i, i-1) = A%dl(i-1)
-            B(i, i) = A%dv(i)
-            B(i, i+1) = A%du(i)
-        enddo
-        B(n, n-1) = A%dl(n-1) ; B(n, n) = A%dv(n)
+        
+        if (n == 1) then
+            B(1, 1) = A%dv(1)
+        else
+            B(1, 1) = A%dv(1) ; B(1, 2) = A%du(1)
+            do concurrent (i=2:n-1)
+                B(i, i-1) = A%dl(i-1)
+                B(i, i) = A%dv(i)
+                B(i, i+1) = A%du(i)
+            enddo
+            B(n, n-1) = A%dl(n-1) ; B(n, n) = A%dv(n)
+        end if
         end associate
     end function
     pure module function tridiagonal_to_dense_csp(A) result(B)
@@ -903,13 +905,18 @@ submodule (stdlib_specialmatrices) tridiagonal_matrices
 
         associate (n => A%n)
         allocate(B(n, n), source=zero_csp)
-        B(1, 1) = A%dv(1) ; B(1, 2) = A%du(1)
-        do concurrent (i=2:n-1)
-            B(i, i-1) = A%dl(i-1)
-            B(i, i) = A%dv(i)
-            B(i, i+1) = A%du(i)
-        enddo
-        B(n, n-1) = A%dl(n-1) ; B(n, n) = A%dv(n)
+        
+        if (n == 1) then
+            B(1, 1) = A%dv(1)
+        else
+            B(1, 1) = A%dv(1) ; B(1, 2) = A%du(1)
+            do concurrent (i=2:n-1)
+                B(i, i-1) = A%dl(i-1)
+                B(i, i) = A%dv(i)
+                B(i, i+1) = A%du(i)
+            enddo
+            B(n, n-1) = A%dl(n-1) ; B(n, n) = A%dv(n)
+        end if
         end associate
     end function
     pure module function tridiagonal_to_dense_cdp(A) result(B)
@@ -924,13 +931,18 @@ submodule (stdlib_specialmatrices) tridiagonal_matrices
 
         associate (n => A%n)
         allocate(B(n, n), source=zero_cdp)
-        B(1, 1) = A%dv(1) ; B(1, 2) = A%du(1)
-        do concurrent (i=2:n-1)
-            B(i, i-1) = A%dl(i-1)
-            B(i, i) = A%dv(i)
-            B(i, i+1) = A%du(i)
-        enddo
-        B(n, n-1) = A%dl(n-1) ; B(n, n) = A%dv(n)
+        
+        if (n == 1) then
+            B(1, 1) = A%dv(1)
+        else
+            B(1, 1) = A%dv(1) ; B(1, 2) = A%du(1)
+            do concurrent (i=2:n-1)
+                B(i, i-1) = A%dl(i-1)
+                B(i, i) = A%dv(i)
+                B(i, i+1) = A%du(i)
+            enddo
+            B(n, n-1) = A%dl(n-1) ; B(n, n) = A%dv(n)
+        end if
         end associate
     end function
 
@@ -1049,6 +1061,15 @@ submodule (stdlib_specialmatrices) tridiagonal_matrices
         type(tridiagonal_sp_type), intent(in) :: A
         type(tridiagonal_sp_type), intent(in) :: B
         type(tridiagonal_sp_type) :: C
+        
+        ! Internal variables.
+        type(linalg_state_type) :: err0
+        
+        if (A%n /= B%n) then
+            err0 = linalg_state_type(this, LINALG_VALUE_ERROR, "tridiagonal matrices must have the same dimension to be added")
+            call linalg_error_handling(err0)
+        end if
+        
         C = tridiagonal(A%dl, A%dv, A%du)
         C%dl = C%dl + B%dl; C%dv = C%dv + B%dv; C%du = C%du + B%du
     end function
@@ -1057,6 +1078,15 @@ submodule (stdlib_specialmatrices) tridiagonal_matrices
         type(tridiagonal_sp_type), intent(in) :: A
         type(tridiagonal_sp_type), intent(in) :: B
         type(tridiagonal_sp_type) :: C
+        
+        ! Internal variables. 
+        type(linalg_state_type) :: err0
+        
+        if (A%n /= B%n) then
+            err0 = linalg_state_type(this, LINALG_VALUE_ERROR, "tridiagonal matrices must have the same dimension to be subtracted")
+            call linalg_error_handling(err0)
+        end if
+        
         C = tridiagonal(A%dl, A%dv, A%du)
         C%dl = C%dl - B%dl; C%dv = C%dv - B%dv; C%du = C%du - B%du
     end function
@@ -1064,6 +1094,15 @@ submodule (stdlib_specialmatrices) tridiagonal_matrices
         type(tridiagonal_dp_type), intent(in) :: A
         type(tridiagonal_dp_type), intent(in) :: B
         type(tridiagonal_dp_type) :: C
+        
+        ! Internal variables.
+        type(linalg_state_type) :: err0
+        
+        if (A%n /= B%n) then
+            err0 = linalg_state_type(this, LINALG_VALUE_ERROR, "tridiagonal matrices must have the same dimension to be added")
+            call linalg_error_handling(err0)
+        end if
+        
         C = tridiagonal(A%dl, A%dv, A%du)
         C%dl = C%dl + B%dl; C%dv = C%dv + B%dv; C%du = C%du + B%du
     end function
@@ -1072,6 +1111,15 @@ submodule (stdlib_specialmatrices) tridiagonal_matrices
         type(tridiagonal_dp_type), intent(in) :: A
         type(tridiagonal_dp_type), intent(in) :: B
         type(tridiagonal_dp_type) :: C
+        
+        ! Internal variables. 
+        type(linalg_state_type) :: err0
+        
+        if (A%n /= B%n) then
+            err0 = linalg_state_type(this, LINALG_VALUE_ERROR, "tridiagonal matrices must have the same dimension to be subtracted")
+            call linalg_error_handling(err0)
+        end if
+        
         C = tridiagonal(A%dl, A%dv, A%du)
         C%dl = C%dl - B%dl; C%dv = C%dv - B%dv; C%du = C%du - B%du
     end function
@@ -1079,6 +1127,15 @@ submodule (stdlib_specialmatrices) tridiagonal_matrices
         type(tridiagonal_csp_type), intent(in) :: A
         type(tridiagonal_csp_type), intent(in) :: B
         type(tridiagonal_csp_type) :: C
+        
+        ! Internal variables.
+        type(linalg_state_type) :: err0
+        
+        if (A%n /= B%n) then
+            err0 = linalg_state_type(this, LINALG_VALUE_ERROR, "tridiagonal matrices must have the same dimension to be added")
+            call linalg_error_handling(err0)
+        end if
+        
         C = tridiagonal(A%dl, A%dv, A%du)
         C%dl = C%dl + B%dl; C%dv = C%dv + B%dv; C%du = C%du + B%du
     end function
@@ -1087,6 +1144,15 @@ submodule (stdlib_specialmatrices) tridiagonal_matrices
         type(tridiagonal_csp_type), intent(in) :: A
         type(tridiagonal_csp_type), intent(in) :: B
         type(tridiagonal_csp_type) :: C
+        
+        ! Internal variables. 
+        type(linalg_state_type) :: err0
+        
+        if (A%n /= B%n) then
+            err0 = linalg_state_type(this, LINALG_VALUE_ERROR, "tridiagonal matrices must have the same dimension to be subtracted")
+            call linalg_error_handling(err0)
+        end if
+        
         C = tridiagonal(A%dl, A%dv, A%du)
         C%dl = C%dl - B%dl; C%dv = C%dv - B%dv; C%du = C%du - B%du
     end function
@@ -1094,6 +1160,15 @@ submodule (stdlib_specialmatrices) tridiagonal_matrices
         type(tridiagonal_cdp_type), intent(in) :: A
         type(tridiagonal_cdp_type), intent(in) :: B
         type(tridiagonal_cdp_type) :: C
+        
+        ! Internal variables.
+        type(linalg_state_type) :: err0
+        
+        if (A%n /= B%n) then
+            err0 = linalg_state_type(this, LINALG_VALUE_ERROR, "tridiagonal matrices must have the same dimension to be added")
+            call linalg_error_handling(err0)
+        end if
+        
         C = tridiagonal(A%dl, A%dv, A%du)
         C%dl = C%dl + B%dl; C%dv = C%dv + B%dv; C%du = C%du + B%du
     end function
@@ -1102,6 +1177,15 @@ submodule (stdlib_specialmatrices) tridiagonal_matrices
         type(tridiagonal_cdp_type), intent(in) :: A
         type(tridiagonal_cdp_type), intent(in) :: B
         type(tridiagonal_cdp_type) :: C
+        
+        ! Internal variables. 
+        type(linalg_state_type) :: err0
+        
+        if (A%n /= B%n) then
+            err0 = linalg_state_type(this, LINALG_VALUE_ERROR, "tridiagonal matrices must have the same dimension to be subtracted")
+            call linalg_error_handling(err0)
+        end if
+        
         C = tridiagonal(A%dl, A%dv, A%du)
         C%dl = C%dl - B%dl; C%dv = C%dv - B%dv; C%du = C%du - B%du
     end function
