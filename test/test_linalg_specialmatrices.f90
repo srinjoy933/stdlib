@@ -173,13 +173,13 @@ contains
             integer, parameter :: wp = sp
             integer, parameter :: n = 5
             type(tridiagonal_sp_type) :: A
-            real(sp), allocatable :: dl(:), dv(:), du(:)
             type(linalg_state_type) :: state
-            integer :: i
 
-            !> Test constructor from arrays.
-            dl = [(1.0_wp, i = 1, n-2)] ; du = dl
-            dv = [(2.0_wp, i = 1, n)]
+            !> Arrays explicitly defined without 'i' to bypass compiler bugs
+            real(sp), parameter :: dl(n-2) = [1.0_wp, 1.0_wp, 1.0_wp]
+            real(sp), parameter :: du(n-2) = [1.0_wp, 1.0_wp, 1.0_wp]
+            real(sp), parameter :: dv(n)   = [2.0_wp, 2.0_wp, 2.0_wp, 2.0_wp, 2.0_wp]
+
             A = tridiagonal(dl, dv, du, state)
             call check(error, state%ok(), .false.)
             if (allocated(error)) return
@@ -193,13 +193,13 @@ contains
             integer, parameter :: wp = dp
             integer, parameter :: n = 5
             type(tridiagonal_dp_type) :: A
-            real(dp), allocatable :: dl(:), dv(:), du(:)
             type(linalg_state_type) :: state
-            integer :: i
 
-            !> Test constructor from arrays.
-            dl = [(1.0_wp, i = 1, n-2)] ; du = dl
-            dv = [(2.0_wp, i = 1, n)]
+            !> Arrays explicitly defined without 'i' to bypass compiler bugs
+            real(dp), parameter :: dl(n-2) = [1.0_wp, 1.0_wp, 1.0_wp]
+            real(dp), parameter :: du(n-2) = [1.0_wp, 1.0_wp, 1.0_wp]
+            real(dp), parameter :: dv(n)   = [2.0_wp, 2.0_wp, 2.0_wp, 2.0_wp, 2.0_wp]
+
             A = tridiagonal(dl, dv, du, state)
             call check(error, state%ok(), .false.)
             if (allocated(error)) return
@@ -218,7 +218,8 @@ contains
             integer, parameter :: wp = sp
             type(tridiagonal_sp_type) :: A
             real(sp), allocatable :: Amat(:,:)
-            ! Maintainer suggested using parameter for constant values
+            
+            ! Uses parameter with standard F2003 empty array syntax to satisfy maintainer
             real(sp), parameter :: dl(0) = [real(sp) ::]
             real(sp), parameter :: du(0) = [real(sp) ::]
             real(sp), parameter :: dv(1) = [5.0_wp]
@@ -238,7 +239,8 @@ contains
             integer, parameter :: wp = dp
             type(tridiagonal_dp_type) :: A
             real(dp), allocatable :: Amat(:,:)
-            ! Maintainer suggested using parameter for constant values
+            
+            ! Uses parameter with standard F2003 empty array syntax to satisfy maintainer
             real(dp), parameter :: dl(0) = [real(dp) ::]
             real(dp), parameter :: du(0) = [real(dp) ::]
             real(dp), parameter :: dv(1) = [5.0_wp]
@@ -264,7 +266,7 @@ contains
             integer, parameter :: n = 3
             type(tridiagonal_sp_type) :: A, B, C
             
-            ! Define components as parameters as suggested by maintainer
+            ! Uses explicit parameter lists to satisfy maintainer and avoid 'i' compiler bug
             real(sp), parameter :: dl1(n-1) = [1.0_wp, 1.0_wp]
             real(sp), parameter :: dv1(n)   = [2.0_wp, 2.0_wp, 2.0_wp]
             real(sp), parameter :: du1(n-1) = [3.0_wp, 3.0_wp]
@@ -296,7 +298,7 @@ contains
             integer, parameter :: n = 3
             type(tridiagonal_dp_type) :: A, B, C
             
-            ! Define components as parameters as suggested by maintainer
+            ! Uses explicit parameter lists to satisfy maintainer and avoid 'i' compiler bug
             real(dp), parameter :: dl1(n-1) = [1.0_wp, 1.0_wp]
             real(dp), parameter :: dv1(n)   = [2.0_wp, 2.0_wp, 2.0_wp]
             real(dp), parameter :: du1(n-1) = [3.0_wp, 3.0_wp]
