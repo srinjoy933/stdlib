@@ -226,7 +226,7 @@ contains
             A = tridiagonal(dl, dv, du) 
             Amat = dense(A)
 
-            ! Check if it compiled and converted properly without segfaulting
+           ! Check if the 1x1 matrix converted properly at runtime without segfaulting
             call check(error, size(Amat, 1) == 1, .true.)
             if (allocated(error)) return
             call check(error, size(Amat, 2) == 1, .true.)
@@ -246,7 +246,7 @@ contains
             A = tridiagonal(dl, dv, du) 
             Amat = dense(A)
 
-            ! Check if it compiled and converted properly without segfaulting
+           ! Check if the 1x1 matrix converted properly at runtime without segfaulting
             call check(error, size(Amat, 1) == 1, .true.)
             if (allocated(error)) return
             call check(error, size(Amat, 2) == 1, .true.)
