@@ -857,13 +857,15 @@ submodule (stdlib_specialmatrices) tridiagonal_matrices
         if (n == 1) then
             B(1, 1) = A%dv(1)
         else
-            B(1, 1) = A%dv(1) ; B(1, 2) = A%du(1)
+            B(1, 1) = A%dv(1)
+            B(1, 2) = A%du(1)
             do concurrent (i=2:n-1)
                 B(i, i-1) = A%dl(i-1)
                 B(i, i) = A%dv(i)
                 B(i, i+1) = A%du(i)
             enddo
-            B(n, n-1) = A%dl(n-1) ; B(n, n) = A%dv(n)
+            B(n, n-1) = A%dl(n-1)
+            B(n, n) = A%dv(n)
         end if
         end associate
     end function
@@ -883,13 +885,15 @@ submodule (stdlib_specialmatrices) tridiagonal_matrices
         if (n == 1) then
             B(1, 1) = A%dv(1)
         else
-            B(1, 1) = A%dv(1) ; B(1, 2) = A%du(1)
+            B(1, 1) = A%dv(1)
+            B(1, 2) = A%du(1)
             do concurrent (i=2:n-1)
                 B(i, i-1) = A%dl(i-1)
                 B(i, i) = A%dv(i)
                 B(i, i+1) = A%du(i)
             enddo
-            B(n, n-1) = A%dl(n-1) ; B(n, n) = A%dv(n)
+            B(n, n-1) = A%dl(n-1)
+            B(n, n) = A%dv(n)
         end if
         end associate
     end function
@@ -909,13 +913,15 @@ submodule (stdlib_specialmatrices) tridiagonal_matrices
         if (n == 1) then
             B(1, 1) = A%dv(1)
         else
-            B(1, 1) = A%dv(1) ; B(1, 2) = A%du(1)
+            B(1, 1) = A%dv(1)
+            B(1, 2) = A%du(1)
             do concurrent (i=2:n-1)
                 B(i, i-1) = A%dl(i-1)
                 B(i, i) = A%dv(i)
                 B(i, i+1) = A%du(i)
             enddo
-            B(n, n-1) = A%dl(n-1) ; B(n, n) = A%dv(n)
+            B(n, n-1) = A%dl(n-1)
+            B(n, n) = A%dv(n)
         end if
         end associate
     end function
@@ -935,13 +941,15 @@ submodule (stdlib_specialmatrices) tridiagonal_matrices
         if (n == 1) then
             B(1, 1) = A%dv(1)
         else
-            B(1, 1) = A%dv(1) ; B(1, 2) = A%du(1)
+            B(1, 1) = A%dv(1)
+            B(1, 2) = A%du(1)
             do concurrent (i=2:n-1)
                 B(i, i-1) = A%dl(i-1)
                 B(i, i) = A%dv(i)
                 B(i, i+1) = A%du(i)
             enddo
-            B(n, n-1) = A%dl(n-1) ; B(n, n) = A%dv(n)
+            B(n, n-1) = A%dl(n-1)
+            B(n, n) = A%dv(n)
         end if
         end associate
     end function
