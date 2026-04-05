@@ -18,7 +18,6 @@ submodule (stdlib_specialmatrices) tridiagonal_matrices
         !! tridiagonal matrix elements.
         type(tridiagonal_sp_type) :: A
         !! Corresponding tridiagonal matrix.
-
         call build_tridiagonal(dl, dv, du, A)
     end function
 
@@ -30,7 +29,6 @@ submodule (stdlib_specialmatrices) tridiagonal_matrices
         !! Matrix dimension.
         type(tridiagonal_sp_type) :: A
         !! Corresponding tridiagonal matrix.
-        
         call build_tridiagonal(dl, dv, du, n, A)
     end function
 
@@ -57,7 +55,6 @@ submodule (stdlib_specialmatrices) tridiagonal_matrices
         !! Error handling
         type(tridiagonal_sp_type) :: A
         !! Corresponding tridiagonal matrix.
-
         call build_tridiagonal(dl, dv, du, n, A, err)
     end function
     pure module function initialize_tridiagonal_pure_dp(dl, dv, du) result(A)
@@ -67,7 +64,6 @@ submodule (stdlib_specialmatrices) tridiagonal_matrices
         !! tridiagonal matrix elements.
         type(tridiagonal_dp_type) :: A
         !! Corresponding tridiagonal matrix.
-
         call build_tridiagonal(dl, dv, du, A)
     end function
 
@@ -79,7 +75,6 @@ submodule (stdlib_specialmatrices) tridiagonal_matrices
         !! Matrix dimension.
         type(tridiagonal_dp_type) :: A
         !! Corresponding tridiagonal matrix.
-        
         call build_tridiagonal(dl, dv, du, n, A)
     end function
 
@@ -106,7 +101,6 @@ submodule (stdlib_specialmatrices) tridiagonal_matrices
         !! Error handling
         type(tridiagonal_dp_type) :: A
         !! Corresponding tridiagonal matrix.
-
         call build_tridiagonal(dl, dv, du, n, A, err)
     end function
     pure module function initialize_tridiagonal_pure_csp(dl, dv, du) result(A)
@@ -116,7 +110,6 @@ submodule (stdlib_specialmatrices) tridiagonal_matrices
         !! tridiagonal matrix elements.
         type(tridiagonal_csp_type) :: A
         !! Corresponding tridiagonal matrix.
-
         call build_tridiagonal(dl, dv, du, A)
     end function
 
@@ -128,7 +121,6 @@ submodule (stdlib_specialmatrices) tridiagonal_matrices
         !! Matrix dimension.
         type(tridiagonal_csp_type) :: A
         !! Corresponding tridiagonal matrix.
-        
         call build_tridiagonal(dl, dv, du, n, A)
     end function
 
@@ -155,7 +147,6 @@ submodule (stdlib_specialmatrices) tridiagonal_matrices
         !! Error handling
         type(tridiagonal_csp_type) :: A
         !! Corresponding tridiagonal matrix.
-
         call build_tridiagonal(dl, dv, du, n, A, err)
     end function
     pure module function initialize_tridiagonal_pure_cdp(dl, dv, du) result(A)
@@ -165,7 +156,6 @@ submodule (stdlib_specialmatrices) tridiagonal_matrices
         !! tridiagonal matrix elements.
         type(tridiagonal_cdp_type) :: A
         !! Corresponding tridiagonal matrix.
-
         call build_tridiagonal(dl, dv, du, A)
     end function
 
@@ -177,7 +167,6 @@ submodule (stdlib_specialmatrices) tridiagonal_matrices
         !! Matrix dimension.
         type(tridiagonal_cdp_type) :: A
         !! Corresponding tridiagonal matrix.
-        
         call build_tridiagonal(dl, dv, du, n, A)
     end function
 
@@ -204,7 +193,6 @@ submodule (stdlib_specialmatrices) tridiagonal_matrices
         !! Error handling
         type(tridiagonal_cdp_type) :: A
         !! Corresponding tridiagonal matrix.
-
         call build_tridiagonal(dl, dv, du, n, A, err)
     end function
 
